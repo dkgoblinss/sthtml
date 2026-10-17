@@ -1,0 +1,72 @@
+/* 全局色彩变量 - 成熟肉欲粉主题 */
+:root {
+  /* 主色调 */
+  --c-primary: #FF1493; /* 深粉 DeepPink */
+  --c-primary-dark: #C71585; /* 深红紫 MediumVioletRed */
+  --c-surface: #4A0E4E; /* 深紫背景 */
+  --c-text: #FFFFFF; /* 白色文字 */
+  --c-text-secondary: rgba(255, 255, 255, 0.7);
+  
+  /* 功能色 */
+  --c-ovulation: #FF69B4; /* 排卵日高亮 HotPink */
+  --c-affection: #FFB6C1; /* 好感度 LightPink */
+  --c-corruption: #C71585; /* 淫乱值 深红紫 */
+  
+  /* 边框与阴影 */
+  --c-border: rgba(255, 20, 147, 0.3);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sarasa Gothic SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--c-text);
+  background: transparent;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 容器样式 */
+.status-bar-container {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* 通用过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-primary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-primary-dark);
+}

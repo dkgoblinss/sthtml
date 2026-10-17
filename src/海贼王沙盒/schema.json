@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "全局变量": {
+      "type": "object",
+      "properties": {
+        "current_day": {
+          "type": "number",
+          "minimum": 1
+        },
+        "current_date": {
+          "type": "string"
+        },
+        "current_location": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "current_day",
+        "current_date",
+        "current_location"
+      ]
+    },
+    "娜美": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "罗宾": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "薇薇": {
+      "$ref": "#/$defs/__schema0"
+    }
+  },
+  "required": [
+    "全局变量",
+    "娜美",
+    "罗宾",
+    "薇薇"
+  ],
+  "$defs": {
+    "__schema0": {
+      "type": "object",
+      "properties": {
+        "姓名": {
+          "type": "string"
+        },
+        "好感度": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "性欲值": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "理性值": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "受孕欲望": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "关系阶段": {
+          "type": "string",
+          "enum": [
+            "陌生",
+            "暧昧",
+            "好感",
+            "沉沦",
+            "受精"
+          ]
+        },
+        "生理周期天数": {
+          "type": "number",
+          "minimum": 1
+        },
+        "当前周期第几天": {
+          "type": "number",
+          "minimum": 1
+        },
+        "是否排卵日": {
+          "type": "boolean"
+        },
+        "排卵日周期天数": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 7
+        },
+        "安全日周期天数": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 7
+        },
+        "是否已受精": {
+          "type": "boolean"
+        },
+        "怀孕天数": {
+          "default": 0,
+          "type": "number",
+          "minimum": 0
+        },
+        "ntr_status": {
+          "type": "object",
+          "properties": {
+            "发生次数": {
+              "default": 0,
+              "type": "number",
+              "minimum": 0
+            },
+            "最近发生日期": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "姓名",
+        "好感度",
+        "性欲值",
+        "理性值",
+        "受孕欲望",
+        "关系阶段",
+        "生理周期天数",
+        "当前周期第几天",
+        "是否排卵日",
+        "排卵日周期天数",
+        "安全日周期天数",
+        "是否已受精",
+        "ntr_status"
+      ]
+    }
+  }
+}

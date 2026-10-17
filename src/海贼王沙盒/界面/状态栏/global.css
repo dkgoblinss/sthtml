@@ -1,0 +1,157 @@
+/* 海贼王沙盒 - 状态栏全局样式 */
+
+/* ===== CSS 色彩变量（功能语义命名）===== */
+:root {
+  /* 主色调 - 魅惑粉 */
+  --c-primary: #FF6B9D;
+  --c-primary-light: #FFB3D1;
+  --c-primary-dark: #D94A7A;
+  
+  /* 次要色 - 神秘紫 */
+  --c-secondary: #9D4EDD;
+  --c-secondary-light: #C77DFF;
+  --c-secondary-dark: #7B2CBF;
+  
+  /* 强调色 - 欲望红 */
+  --c-accent: #FF1744;
+  --c-accent-light: #FF6090;
+  --c-accent-dark: #C4001D;
+  
+  /* 背景色 - 暗色系 */
+  --c-bg-dark: #1a1a2e;
+  --c-bg-light: #16213e;
+  --c-bg-elevated: #252945;
+  
+  /* 文字色 */
+  --c-text-primary: #f1f1f1;
+  --c-text-secondary: #b8b8b8;
+  --c-text-muted: #8b8b8b;
+  
+  /* 边框和分隔 */
+  --c-border: rgba(255, 255, 255, 0.1);
+  --c-border-hover: rgba(255, 255, 255, 0.2);
+  
+  /* 发光效果 */
+  --c-glow-primary: rgba(255, 107, 157, 0.3);
+  --c-glow-secondary: rgba(157, 78, 221, 0.3);
+  --c-glow-accent: rgba(255, 23, 68, 0.4);
+  
+  /* 状态色 */
+  --c-safe: #4CAF50;      /* 安全日 - 绿色 */
+  --c-danger: #FF5252;    /* 排卵日 - 红色 */
+  --c-warning: #FFC107;   /* 警告 - 黄色 */
+  
+  /* 进度条渐变 */
+  --gradient-affection: linear-gradient(90deg, var(--c-primary-dark), var(--c-primary-light));
+  --gradient-lust: linear-gradient(90deg, var(--c-secondary-dark), var(--c-secondary-light));
+  --gradient-rationality: linear-gradient(90deg, #4A90E2, #7EC8E3);
+  --gradient-breeding: linear-gradient(90deg, var(--c-accent-dark), var(--c-accent-light));
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px var(--c-glow-primary);
+}
+
+/* ===== 全局重置 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sarasa Gothic SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  color: var(--c-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== 滚动条样式 ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--c-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-primary-light);
+}
+
+/* ===== 通用工具类 ===== */
+.text-primary {
+  color: var(--c-primary);
+}
+
+.text-secondary {
+  color: var(--c-secondary);
+}
+
+.text-accent {
+  color: var(--c-accent);
+}
+
+.text-muted {
+  color: var(--c-text-muted);
+}
+
+.glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ===== 动画定义 ===== */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--c-glow-primary);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--c-glow-primary), 0 0 30px var(--c-glow-primary);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes heart-beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 响应式断点 ===== */
+@media (max-width: 800px) {
+  body {
+    font-size: 12px;
+  }
+}
