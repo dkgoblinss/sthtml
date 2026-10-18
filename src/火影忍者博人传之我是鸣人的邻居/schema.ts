@@ -12,7 +12,7 @@ export const Schema = z.object({
   雏田: z.object({
     好感度: z.coerce.number().transform(v => _.clamp(v, 0, 100)),
     顺从度: z.coerce.number().transform(v => _.clamp(v, 0, 100)),
-    堕落度: z.coerce.number().transform(v => _.clamp(v, 0, 100)),
+    受精欲: z.coerce.number().transform(v => _.clamp(v, 0, 100)),
     关系阶段: z.enum(['普通', '动摇并越界', '沉沦', '受精怀孕']),
     生理日程: z.enum(['安全日', '排卵日'])
   })
@@ -26,7 +26,7 @@ export const Schema = z.object({
   雏田: {
     好感度: 40,
     顺从度: 20,
-    堕落度: 10,
+    受精欲: 30,
     关系阶段: '普通',
     生理日程: '安全日'
   }

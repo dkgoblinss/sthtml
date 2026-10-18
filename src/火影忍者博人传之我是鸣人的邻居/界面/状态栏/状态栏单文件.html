@@ -8,44 +8,57 @@
 <script>
 (function () {
   var PREFIX = '[火影忍者博人传之我是鸣人的邻居]';
+  var PORTRAIT_URL = '/User Avatars/hinata.png';
 
   var css = [
     ':root{--c-primary:#F48FB1;--c-secondary:#B388FF;--c-accent:#FF1744}',
     '*{margin:0;padding:0;box-sizing:border-box}',
-    'body{font-family:"PingFang SC","Microsoft YaHei","Sarasa Gothic SC",sans-serif;font-size:14px;color:#F5EDEF;line-height:1.5;background:transparent}',
+    'body{font-family:"PingFang SC","Microsoft YaHei","Sarasa Gothic SC",sans-serif;font-size:15px;color:#F5EDEF;line-height:1.5;background:transparent}',
     '.status-bar-container{display:flex;flex-direction:column;gap:10px;width:100%;min-width:560px;padding:12px;background:#26191E;border-radius:12px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 16px rgba(0,0,0,0.5);animation:fade-in 0.4s ease-out}',
     '.header-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 12px;background:#3A2A30;border-radius:8px;border:1px solid rgba(255,255,255,0.1)}',
-    '.header-title{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#F5EDEF}',
-    '.header-title i{font-size:17px;color:#F48FB1}',
+    '.header-title{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;color:#F5EDEF}',
+    '.header-title i{font-size:18px;color:#F48FB1}',
     '.header-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap}',
-    '.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;font-size:12px;color:#C9B9BE;background:#2E2126;border:1px solid rgba(255,255,255,0.1)}',
-    '.chip i{font-size:12px}',
+    '.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;font-size:13px;color:#C9B9BE;background:#2E2126;border:1px solid rgba(255,255,255,0.1)}',
+    '.chip i{font-size:13px}',
     '.chip-home{color:#FF1744;border-color:#C4001D;animation:pulse-danger 2.5s ease-in-out infinite}',
     '.chip-demo{color:#FFC107;border-color:#FFC107}',
     '.panel{display:flex;flex-direction:column;gap:10px;padding:12px;background:#2E2126;border-radius:8px;border:1px solid rgba(255,255,255,0.1)}',
-    '.panel-title{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#F5EDEF}',
-    '.panel-title i{font-size:16px;color:#F48FB1}',
-    '.stats-grid{display:flex;flex-direction:column;gap:12px}',
+    '.panel-hinata{position:relative}',
+    '.panel-title{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#F5EDEF}',
+    '.panel-title i{font-size:17px;color:#F48FB1}',
+    '.main-layout{display:flex;gap:12px;align-items:stretch}',
+    '.right-column{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}',
+    '.portrait-panel{position:relative;width:240px;aspect-ratio:3/4;align-self:flex-start;flex-shrink:0;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:linear-gradient(180deg,#3A2A30,#26191E);overflow:hidden}',
+    '.portrait-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#99868C;font-size:15px;letter-spacing:4px}',
+    '.portrait-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}',
+    '.ovu-badge{position:absolute;top:10px;right:10px;width:48px;height:48px;pointer-events:none;transition:filter 0.3s ease}',
+    '.ovu-heart{width:100%;height:100%;fill:#FFFFFF;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.4))}',
+    '.ovu-text{fill:#000000;font-size:6.5px;font-weight:700}',
+    '.ovu-badge.ovulation{filter:drop-shadow(0 0 10px rgba(255,105,157,0.9))}',
+    '.ovu-badge.ovulation .ovu-heart{fill:#FF6B9D;animation:ovu-breathe 1.5s ease-in-out infinite}',
+    '.ovu-badge.ovulation .ovu-text{fill:#FFFFFF}',
+    '.stats-grid{display:flex;flex-direction:column;gap:12px;min-width:0;margin-top:14px}',
     '.stat-bar{display:flex;flex-direction:column;gap:6px}',
     '.stat-header{display:flex;justify-content:space-between;align-items:center}',
-    '.stat-label{display:flex;align-items:center;gap:6px;font-size:14px;color:#C9B9BE}',
-    '.stat-label i{font-size:16px}',
-    '.stat-value{font-size:14px;font-weight:600;color:#F5EDEF}',
-    '.stat-progress-bg{height:24px;background:#26191E;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);position:relative}',
-    '.stat-progress-fill{height:100%;border-radius:12px;transition:width 0.8s ease-out;position:relative;overflow:hidden}',
+    '.stat-label{display:flex;align-items:center;gap:6px;font-size:15px;color:#C9B9BE}',
+    '.stat-label i{font-size:17px}',
+    '.stat-value{font-size:15px;font-weight:600;color:#F5EDEF}',
+    '.stat-progress-bg{height:26px;background:#26191E;border-radius:13px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);position:relative}',
+    '.stat-progress-fill{height:100%;border-radius:13px;transition:width 0.8s ease-out;position:relative;overflow:hidden}',
     '.stat-progress-fill::after{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 2s infinite}',
     '.type-affection{background:linear-gradient(90deg,#D66D8F,#F8BBD0);box-shadow:0 0 10px rgba(244,143,177,0.3)}',
     '.type-obedience{background:linear-gradient(90deg,#5C9CE6,#9CC8F5);box-shadow:0 0 8px rgba(92,156,230,0.3)}',
-    '.type-corruption{background:linear-gradient(90deg,#8E5FD3,#FF1744);box-shadow:0 0 12px rgba(255,23,68,0.4)}',
+    '.type-breeding{background:linear-gradient(90deg,#B388FF,#FF8FB1);box-shadow:0 0 12px rgba(255,143,177,0.4)}',
     '.icon-heart{color:#F48FB1;animation:heart-beat 1.5s ease-in-out infinite}',
     '.icon-hand{color:#5C9CE6}',
-    '.icon-fire{color:#B388FF}',
+    '.icon-baby{color:#FF8FB1}',
     '.stage-progress{padding:16px 12px;background:#2E2126;border-radius:8px;border:1px solid rgba(255,255,255,0.1)}',
     '.stage-dots{display:flex;justify-content:space-between;align-items:center;position:relative}',
     '.stage-dots::before{content:"";position:absolute;top:12px;left:5%;right:5%;height:2px;background:rgba(255,255,255,0.1);z-index:0}',
     '.stage-dot{display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1;position:relative}',
     '.dot-inner{width:24px;height:24px;border-radius:50%;border:2px solid;transition:all 0.4s ease;background:#26191E}',
-    '.dot-label{font-size:11px;color:#99868C;white-space:nowrap;transition:all 0.3s ease}',
+    '.dot-label{font-size:12px;color:#99868C;white-space:nowrap;transition:all 0.3s ease}',
     '.stage-dot.future .dot-inner{border-color:rgba(255,255,255,0.1);background:#26191E}',
     '.stage-dot.future .dot-label{color:#99868C}',
     '.stage-dot.completed .dot-inner{border-color:#F48FB1;background:#F48FB1}',
@@ -55,24 +68,25 @@
     '.cycle-indicator{display:flex;flex-direction:column;gap:6px;padding:12px;background:#2E2126;border-radius:8px;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s ease}',
     '.cycle-indicator.ovulation{border-color:#FF5252;background:rgba(255,82,82,0.1)}',
     '.cycle-header{display:flex;justify-content:space-between;align-items:center}',
-    '.cycle-label{display:flex;align-items:center;gap:6px;font-size:14px;color:#C9B9BE}',
-    '.cycle-label i{font-size:16px}',
+    '.cycle-label{display:flex;align-items:center;gap:6px;font-size:15px;color:#C9B9BE}',
+    '.cycle-label i{font-size:17px}',
     '.cycle-indicator.ovulation .cycle-label i{color:#FF5252;animation:breathe 2s ease-in-out infinite}',
     '.cycle-indicator:not(.ovulation) .cycle-label i{color:#66BB6A}',
     '.cycle-status{display:flex;align-items:center;gap:8px}',
-    '.status-badge{padding:2px 8px;border-radius:8px;font-size:12px;font-weight:500;background:#66BB6A;color:white}',
+    '.status-badge{padding:2px 9px;border-radius:8px;font-size:13px;font-weight:500;background:#66BB6A;color:white}',
     '.status-badge.ovulation{background:#FF5252;animation:pulse-danger 2s ease-in-out infinite}',
-    '.cycle-day{font-size:12px;color:#99868C}',
+    '.cycle-day{font-size:13px;color:#99868C}',
     '.cycle-progress-bg{height:8px;background:#26191E;border-radius:4px;overflow:hidden}',
     '.cycle-progress-fill{height:100%;background:#66BB6A;border-radius:4px;transition:width 0.5s ease-out}',
     '.cycle-progress-fill.ovulation{background:#FF5252;box-shadow:0 0 8px rgba(255,82,82,0.5)}',
     '@keyframes pulse-glow{0%,100%{box-shadow:0 0 10px rgba(244,143,177,0.3)}50%{box-shadow:0 0 20px rgba(244,143,177,0.3),0 0 30px rgba(244,143,177,0.3)}}',
     '@keyframes pulse-danger{0%,100%{box-shadow:0 0 8px rgba(255,23,68,0.4)}50%{box-shadow:0 0 18px rgba(255,23,68,0.4),0 0 26px rgba(255,23,68,0.4)}}',
+    '@keyframes ovu-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}',
     '@keyframes breathe{0%,100%{opacity:0.6}50%{opacity:1}}',
     '@keyframes heart-beat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}',
     '@keyframes fade-in{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}',
     '@keyframes shimmer{0%{left:-100%}100%{left:100%}}',
-    '@media (max-width:800px){.status-bar-container{min-width:unset;padding:8px;gap:8px}.stage-dots{flex-wrap:wrap;gap:12px}.stage-dots::before{display:none}.dot-label{font-size:10px}.stat-progress-bg{height:20px}}'
+    '@media (max-width:800px){.status-bar-container{min-width:unset;padding:8px;gap:8px}.main-layout{flex-direction:column}.portrait-panel{width:100%;aspect-ratio:16/9}.stage-dots{flex-wrap:wrap;gap:12px}.stage-dots::before{display:none}.dot-label{font-size:11px}.stat-progress-bg{height:22px}}'
   ].join('');
 
   document.head.appendChild(Object.assign(document.createElement('style'), { textContent: css }));
@@ -89,13 +103,13 @@
     雏田: Z.object({
       好感度: Z.coerce.number().transform(function (v) { return _.clamp(v, 0, 100); }),
       顺从度: Z.coerce.number().transform(function (v) { return _.clamp(v, 0, 100); }),
-      堕落度: Z.coerce.number().transform(function (v) { return _.clamp(v, 0, 100); }),
+      受精欲: Z.coerce.number().transform(function (v) { return _.clamp(v, 0, 100); }),
       关系阶段: Z.enum(['普通', '动摇并越界', '沉沦', '受精怀孕']),
       生理日程: Z.enum(['安全日', '排卵日'])
     })
   }).prefault({
     世界: { 日期: 1, 时间段: '上午', 位置: '邻居家', 鸣人状态: '不在家' },
-    雏田: { 好感度: 40, 顺从度: 20, 堕落度: 10, 关系阶段: '普通', 生理日程: '安全日' }
+    雏田: { 好感度: 40, 顺从度: 20, 受精欲: 30, 关系阶段: '普通', 生理日程: '安全日' }
   });
 
   var readData = function () {
@@ -165,6 +179,42 @@
     ]);
   };
 
+  var renderPortrait = function () {
+    return Vue.h('div', { class: 'portrait-panel' }, [
+      Vue.h('span', { class: 'portrait-fallback' }, '雏田'),
+      Vue.h('img', {
+        class: 'portrait-img',
+        src: PORTRAIT_URL,
+        alt: '雏田',
+        onerror: function (e) { e.target.style.display = 'none'; }
+      })
+    ]);
+  };
+
+  var renderOvuBadge = function (ovu) {
+    return Vue.h('div', { class: 'ovu-badge' + (ovu ? ' ovulation' : '') }, [
+      Vue.h('svg', { class: 'ovu-heart', viewBox: '0 0 24 24' }, [
+        Vue.h('path', { d: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' }),
+        Vue.h('text', { x: '12', y: '13.5', 'text-anchor': 'middle', class: 'ovu-text' }, '排卵')
+      ])
+    ]);
+  };
+
+  var renderHinataPanel = function (hinata, ovu) {
+    return Vue.h('section', { class: 'panel panel-hinata' }, [
+      Vue.h('div', { class: 'panel-title' }, [
+        Vue.h('i', { class: 'fa fa-heart' }),
+        Vue.h('span', null, '雏田')
+      ]),
+      Vue.h('div', { class: 'stats-grid' }, [
+        renderStatBar('好感度', hinata && hinata.好感度, 'affection', 'fa-heart', 'icon-heart'),
+        renderStatBar('顺从度', hinata && hinata.顺从度, 'obedience', 'fa-hand', 'icon-hand'),
+        renderStatBar('受精欲', hinata && hinata.受精欲, 'breeding', 'fa-baby', 'icon-baby')
+      ]),
+      renderOvuBadge(ovu)
+    ]);
+  };
+
   var renderStageProgress = function (current) {
     var idx = STAGES.indexOf(current);
     return Vue.h('div', { class: 'stage-progress' }, [
@@ -209,19 +259,14 @@
       return function () {
         return Vue.h('div', { class: 'status-bar-container' }, [
           renderHeaderBar(world.value, demo.value),
-          Vue.h('section', { class: 'panel' }, [
-            Vue.h('div', { class: 'panel-title' }, [
-              Vue.h('i', { class: 'fa fa-heart' }),
-              Vue.h('span', null, '雏田')
-            ]),
-            Vue.h('div', { class: 'stats-grid' }, [
-              renderStatBar('好感度', hinata.value && hinata.value.好感度, 'affection', 'fa-heart', 'icon-heart'),
-              renderStatBar('顺从度', hinata.value && hinata.value.顺从度, 'obedience', 'fa-hand', 'icon-hand'),
-              renderStatBar('堕落度', hinata.value && hinata.value.堕落度, 'corruption', 'fa-fire', 'icon-fire')
+          Vue.h('div', { class: 'main-layout' }, [
+            renderPortrait(),
+            Vue.h('div', { class: 'right-column' }, [
+              renderHinataPanel(hinata.value, ovu.value),
+              renderStageProgress(stage.value),
+              renderCycle(ovu.value, day.value)
             ])
-          ]),
-          renderStageProgress(stage.value),
-          renderCycle(ovu.value, day.value)
+          ])
         ]);
       };
     }
